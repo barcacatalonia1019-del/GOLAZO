@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>GOLAZO | توقعات كرة القدم</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}
+    header{background:#111;padding:20px;border-bottom:1px solid #b99132;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:27px;font-weight:900;color:#e7bd50;letter-spacing:2px}
+    .menu{font-size:25px;color:#e7bd50}
+    main{max-width:850px;margin:auto;padding:20px}
+    .welcome{background:linear-gradient(135deg,#29210d,#111);border:1px solid #806522;border-radius:16px;padding:25px;margin:15px 0 25px}
+    h1{color:#f0c65b;margin:0 0 10px}
+    p{color:#aaa;line-height:1.7}
+    .section-title{color:#e7bd50;font-size:20px;margin:25px 0 15px}
+    .competition{background:#171717;border:1px solid #333;border-radius:12px;padding:17px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
+    .competition span{font-weight:bold}
+    .arrow{color:#e7bd50;font-size:22px}
+    nav{display:flex;gap:8px;margin:20px 0}
+    nav button{flex:1;background:#171717;border:1px solid #333;color:#ccc;padding:13px 5px;border-radius:9px;font-size:14px}
+    nav button.active{background:#b99132;color:#090909;font-weight:bold}
+    #content{min-height:150px}
+    footer{text-align:center;color:#666;padding:30px;font-size:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GOLAZO ⚽</div>
+    <div class="menu">☰</div>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>أهلاً بك في GOLAZO</h1>
+      <p>توقع نتائج المباريات، اجمع النقاط، وتحدى أصحابك!</p>
+    </section>
+
+    <nav>
+      <button class="active" onclick="showTab('matches',this)">المباريات</button>
+      <button onclick="showTab('ranking',this)">الترتيب</button>
+      <button onclick="showTab('leagues',this)">دورياتي</button>
+    </nav>
+
+    <section id="content">
+      <h2 class="section-title">البطولات الرسمية</h2>
+      <div class="competition"><span>Premier League</span><b class="arrow">‹</b></div>
+      <div class="competition"><span>LaLiga</span><b class="arrow">‹</b></div>
+      <div class="competition"><span>Serie A</span><b class="arrow">‹</b></div>
+      <div class="competition"><span>UEFA Champions League</span><b class="arrow">‹</b></div>
+      <div class="competition"><span>FIFA World Cup</span><b class="arrow">‹</b></div>
+      <div class="competition"><span>UEFA EURO</span><b class="arrow">‹</b></div>
+    </section>
+  </main>
+
+  <footer>GOLAZO © 2026</footer>
+
+  <script>
+    function showTab(tab,button){
+      document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+      button.classList.add('active');
+      const content=document.getElementById('content');
+      if(tab==='matches'){
+        content.innerHTML='<h2 class="section-title">البطولات الرسمية</h2>'+['Premier League','LaLiga','Serie A','UEFA Champions League','FIFA World Cup','UEFA EURO'].map(x=>'<div class="competition"><span>'+x+'</span><b class="arrow">‹</b></div>').join('');
+      }else if(tab==='ranking'){
+        content.innerHTML='<h2 class="section-title">الترتيب العام</h2><p>سيظهر ترتيب اللاعبين ونقاطهم هنا.</p>';
+      }else{
+        content.innerHTML='<h2 class="section-title">دورياتي الخاصة</h2><p>أنشئ دوري مع أصحابك أو انضم لدوري باستخدام كود الدعوة.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
