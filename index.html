@@ -71,5 +71,19 @@
       }
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://nfenhsrahleoeyeebzwt.supabase.co/rest/v1/";
+  const SUPABASE_ANON_KEY = "sb_publishable_8jF58_tmWamXjm_o5lR9aw_d3oydY19";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  console.log("GOLAZO connected to Supabase");
+</script>
+</body>
+</html>
 </body>
 </html>
