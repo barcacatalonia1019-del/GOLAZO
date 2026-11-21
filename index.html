@@ -85,5 +85,28 @@
 </script>
 </body>
 </html>
+<script>
+(async function testSupabaseConnection() {
+  const result = document.createElement("div");
+  result.style.cssText = "margin:20px;padding:15px;border:1px solid #c9a23f;border-radius:10px;text-align:center;background:#171717;color:#fff";
+  result.textContent = "جاري اختبار الاتصال بـ Supabase...";
+  document.body.appendChild(result);
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("matches")
+      .select("id")
+      .limit(1);
+
+    if (error) throw error;
+
+    result.textContent = "✅ الاتصال بـ Supabase ناجح!";
+  } catch (error) {
+    result.textContent = "❌ الاتصال لم يكتمل: " + error.message;
+  }
+})();
+</script>
+</body>
+</html>
 </body>
 </html>
