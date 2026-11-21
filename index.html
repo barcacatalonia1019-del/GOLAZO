@@ -112,43 +112,50 @@
 window.addEventListener("load", function () {
   const main = document.querySelector("main");
 
+  if (!main) {
+    alert("لم يتم العثور على قسم الصفحة الرئيسي");
+    return;
+  }
+
   const authBox = document.createElement("section");
-  authBox.id = "golazo-auth";
+
   authBox.style.cssText = 
     background:#171717;
-    border:1px solid #b99132;
+    border:1px solid #d5ad43;
     border-radius:15px;
     padding:22px;
     margin:20px 0;
     text-align:center;
+    color:white;
   ;
 
   authBox.innerHTML = 
-    <h2 style="color:#e7bd50">GOLAZO ACCOUNT</h2>
+    <h2 style="color:#e7bd50">GOLAZO ACCOUNT ⚽</h2>
     <p>سجل حسابك وابدأ تحدي أصحابك</p>
 
-    <div id="auth-fields">
-      <input id="auth-name" placeholder="الاسم" 
-        style="display:none;width:100%;padding:13px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:8px">
+    <input id="auth-name" placeholder="الاسم"
+      style="display:none;width:90%;padding:13px;margin:7px;background:#222;color:white;border:1px solid #555;border-radius:8px">
 
-      <input id="auth-email" type="email" placeholder="البريد الإلكتروني"
-        style="width:100%;padding:13px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:8px">
+    <input id="auth-email" type="email" placeholder="البريد الإلكتروني"
+      style="width:90%;padding:13px;margin:7px;background:#222;color:white;border:1px solid #555;border-radius:8px">
 
-      <input id="auth-password" type="password" placeholder="كلمة المرور"
-        style="width:100%;padding:13px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:8px">
+    <input id="auth-password" type="password" placeholder="كلمة المرور"
+      style="width:90%;padding:13px;margin:7px;background:#222;color:white;border:1px solid #555;border-radius:8px">
 
-      <button id="auth-submit" style="width:100%;padding:13px;margin-top:12px;background:#d5ad43;color:#111;border:0;border-radius:8px;font-weight:bold">
-        تسجيل الدخول
-      </button>
-    </div>
+    <button id="auth-submit"
+      style="width:95%;padding:13px;margin-top:12px;background:#d5ad43;color:#111;border:0;border-radius:8px;font-weight:bold">
+      تسجيل الدخول
+    </button>
 
     <p id="auth-message" style="color:#e7bd50"></p>
 
-    <button id="auth-switch" style="background:none;border:0;color:#e7bd50;padding:10px">
+    <button id="auth-switch"
+      style="background:none;border:0;color:#e7bd50;padding:10px">
       إنشاء حساب جديد
     </button>
 
-    <button id="auth-logout" style="display:none;background:#333;color:white;border:0;padding:10px;border-radius:8px">
+    <button id="auth-logout"
+      style="display:none;background:#333;color:white;border:0;padding:10px;border-radius:8px">
       تسجيل الخروج
     </button>
   ;
@@ -169,7 +176,9 @@ window.addEventListener("load", function () {
     isRegister = !isRegister;
     name.style.display = isRegister ? "block" : "none";
     submit.textContent = isRegister ? "إنشاء الحساب" : "تسجيل الدخول";
-    switchBtn.textContent = isRegister ? "لديك حساب؟ سجل الدخول" : "إنشاء حساب جديد";
+    switchBtn.textContent = isRegister
+      ? "لديك حساب؟ سجل الدخول"
+      : "إنشاء حساب جديد";
     message.textContent = "";
   };
 
@@ -216,15 +225,21 @@ window.addEventListener("load", function () {
       }
 
       await updateAuthView();
+
     } catch (error) {
       message.textContent = "خطأ: " + error.message;
     }
   };
 
   async function updateAuthView() {
-    const { data } = await supabaseClient.auth.getSession();
-    const loggedIn = !!data.session;
+    const { data, error } = await supabaseClient.auth.getSession();
 
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    const loggedIn = !!data.session;
     if (loggedIn) {
       message.textContent = "أهلاً بك في GOLAZO ⚽";
       submit.style.display = "none";
@@ -244,6 +259,7 @@ window.addEventListener("load", function () {
 
   logout.onclick = async function () {
     const { error } = await supabaseClient.auth.signOut();
+
     if (error) {
       message.textContent = error.message;
       return;
@@ -257,7 +273,7 @@ window.addEventListener("load", function () {
   };
 
   updateAuthView();
-}); 
+});
 </script>
 </body>
 </html>
